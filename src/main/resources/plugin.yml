@@ -1,0 +1,12 @@
+name: GUIPotsShop
+version: ${project.version}
+main: org.nightmarenetwork.guipotsshop.GUIPotsShop
+prefix: [GUIPotsShop] 
+authors: [MatiasME]
+description: A simple Pots Shop plugin
+website: https://www.spigotmc.org/resources/authors/writkas.74734/
+depends: Vault
+commands:
+  potsshop:
+    description: Show GUI Pots Shop or enable/disable pots
+    usage: /potsshop [set] [potion-name] [true/false]

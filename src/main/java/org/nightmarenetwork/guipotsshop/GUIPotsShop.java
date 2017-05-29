@@ -51,7 +51,7 @@ public final class GUIPotsShop extends JavaPlugin {
         //
 
         PluginManager pm = getServer().getPluginManager();
-        pm.registerEvents(new InventoryClick(this, econ), this);
+        pm.registerEvents(new InventoryClick(this, econ, potNames), this);
     }
 
     @Override

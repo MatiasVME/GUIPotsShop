@@ -1,20 +1,15 @@
 package org.nightmarenetwork.guipotsshop.commands;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.potion.PotionData;
-import org.bukkit.potion.PotionType;
 
 import org.nightmarenetwork.guipotsshop.GUIPotsShop;
 import org.nightmarenetwork.guipotsshop.Potions;
-import org.nightmarenetwork.guipotsshop.events.InventoryClick;
 
 import java.util.Objects;
 
@@ -41,18 +36,20 @@ public class PotsShop implements CommandExecutor {
                 int invSize = getInventorySize();
 
                 Inventory inv = plugin.getServer().createInventory(null, invSize,
-                        plugin.getConfig().getString("chest-name"));
+                        ChatColor.translateAlternateColorCodes('&',
+                                plugin.getConfig().getString("chest-name")));
 
                 inv = addPotions(inv);
 
 
                 player.openInventory(inv);
 
-                player.sendMessage("Num of pots enabled: " + potNames.getNumPotsEnabled());
+                //player.sendMessage("Num of pots enabled: " + potNames.getNumPotsEnabled());
             }
 
             else {
-                player.sendMessage(ChatColor.DARK_AQUA + plugin.getConfig().getString("messages.not-permission"));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                        plugin.getConfig().getString("messages.not-permission")));
             }
         }
 
@@ -92,27 +89,27 @@ public class PotsShop implements CommandExecutor {
     private int getInventorySize() {
         int numPotsEnabled = potNames.getNumPotsEnabled();
 
-        if (numPotsEnabled < 9) {
+        if (numPotsEnabled <= 9) {
             return 9;
         }
 
-        else if (numPotsEnabled < 18) {
+        else if (numPotsEnabled <= 18) {
             return 18;
         }
 
-        else if (numPotsEnabled < 27) {
+        else if (numPotsEnabled <= 27) {
             return 27;
         }
 
-        else if (numPotsEnabled < 36) {
+        else if (numPotsEnabled <= 36) {
             return 36;
         }
 
-        else if (numPotsEnabled < 45) {
+        else if (numPotsEnabled <= 45) {
             return 45;
         }
 
-        else if (numPotsEnabled < 54) {
+        else if (numPotsEnabled <= 54) {
             return 54;
         }
 

@@ -1,19 +1,47 @@
 # A plugin by MatiasME
 
-chest-name: "[GUIPotsShop]"
-
-potions-type-cost: money # or level
+chest-name: "&5&l[&3&lGUIPotsShop&5&l]"
 
 potions:
   night: true
-  night-ext: true
+  night-ext: false
   night-splash: false
   night-splash-ext: false
 
   invi: false
-  invi-ext: false
+  invi-ext: true
   invi-splash: false
   invi-splash-ext: false
+
+  fire: false
+  fire-ext: true
+  fire-splash: false
+  fire-splash-ext: false
+
+  heal: false
+  heal-up: false
+  heal-splash: false
+  heal-splash-up: true
+
+  poison: false
+  poison-ext: false
+  poison-splash: false
+  poison-splash-ext: false
+  poison-splash-up: true
+
+  regen: false
+  regen-ext: false
+  regen-up: false
+  regen-splash: false
+  regen-splash-ext: false
+  regen-splash-up: false
+
+  strength: false
+  strength-up: true
+  strength-ext: true
+  strength-splash: false
+  strength-splash-ext: true
+  strength-splash-up: true
 
 potions-cost:
   night: 100
@@ -26,6 +54,39 @@ potions-cost:
   invi-splash: 100
   invi-splash-ext: 100
 
+  fire: 100
+  fire-ext: 100
+  fire-splash: 100
+  fire-splash-ext: 100
+
+  heal: 100
+  heal-up: 100
+  heal-splash: 100
+  heal-splash-up: 100
+
+  poison: 100
+  poison-ext: 100
+  poison-splash: 100
+  poison-splash-ext: 100
+  poison-splash-up: 100
+
+  regen: 100
+  regen-ext: 100
+  regen-up: 100
+  regen-splash: 100
+  regen-splash-ext: 100
+  regen-splash-up: 100
+
+  strength: 100
+  strength-up: 100
+  strength-ext: 100
+  strength-splash: 100
+  strength-splash-ext: 100
+  strength-splash-up: 100
 
 messages:
-  not-permission: "&2You don't have permission for this command."
+  not-permission: "&4You don't have permission for this command."
+  bought-potion: "&3You have bought a potion."
+  cant-buy: "&3You do not have enough money."
+  economy-error: "&4An error has occurred in the economy: "
+  pots-price-lore: "&3This potion is worth: &2"

@@ -2,6 +2,7 @@ package org.nightmarenetwork.guipotsshop.events;
 
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -10,8 +11,8 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
-import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.plugin.Plugin;
+import org.nightmarenetwork.guipotsshop.Potions;
 
 /**
  * Created by matias on 15-05-17.
@@ -19,17 +20,20 @@ import org.bukkit.plugin.Plugin;
 public class InventoryClick implements Listener {
     private Economy econ;
     private Plugin plugin;
+    private Potions potsNames;
 
-    public InventoryClick (Plugin plugin, Economy econ) {
+    public InventoryClick (Plugin plugin, Economy econ, Potions potsNames) {
         this.plugin = plugin;
         this.econ = econ;
+        this.potsNames = potsNames;
     }
 
     @EventHandler
     public void onInventoryClick (InventoryClickEvent event) {
         Inventory inv = event.getInventory();
 
-        if (!inv.getTitle().equals(plugin.getConfig().getString("chest-name")))
+        if (!inv.getTitle().equals(ChatColor.translateAlternateColorCodes('&',
+                plugin.getConfig().getString("chest-name"))))
             return;
 
         if (!(event.getWhoClicked() instanceof Player))
@@ -39,36 +43,45 @@ public class InventoryClick implements Listener {
 
         ItemStack item = event.getCurrentItem();
 
-        if (item.getType() == Material.POTION) {
-            PotionMeta pm = (PotionMeta) item.getItemMeta();
+        int slot = event.getSlot();
 
-            Boolean isExtended = pm.getBasePotionData().isExtended();
+        if (item.getType() == Material.POTION || item.getType() == Material.SPLASH_POTION) {
+            double price = (double) plugin.getConfig().getInt("potions-cost."
+                    + potsNames.getCurrentPotionName(slot));
 
-            if (isExtended) {
-                player.sendMessage("isExtended");
-            }
+            //player.sendMessage("price: " + price);
+            //player.sendMessage("rute: " + "potions-cost." + potsNames.getCurrentPotionName(slot));
+            //player.sendMessage("slot: " + slot);
 
-            PlayerInventory playerInv = player.getInventory();
-            playerInv.addItem(item);
+            final double balance = econ.getBalance(player);
 
-            player.teleport(player.getWorld().getSpawnLocation());
-            player.sendMessage("wow");
+            if (balance >= price) {
+                EconomyResponse economyResponse = econ.withdrawPlayer(player, price);
 
-            final double balance = econ.getBalance((Player) player);
+                if (economyResponse.transactionSuccess()) {
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                            plugin.getConfig().getString("messages.bought-potion")));
 
-            EconomyResponse economyResponse = econ.withdrawPlayer((Player) player, 20);
+                    PlayerInventory playerInv = player.getInventory();
+                    playerInv.addItem(item);
+                }
 
-            if (economyResponse.transactionSuccess()) {
-                player.sendMessage("se te a quitado money");
+                else {
+                    player.sendMessage(plugin.getConfig().getString("messages.economy-error") +
+                            economyResponse.errorMessage);
+                }
             }
 
             else {
-                player.sendMessage("ha ocurrido un error: " + economyResponse.errorMessage);
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                        plugin.getConfig().getString("messages.cant-buy")));
             }
-
         }
 
+        //inv.addItem(item);
+
         event.setCancelled(true);
-        player.closeInventory();
+        //event.setCurrentItem(null);
+        //player.closeInventory();
     }
 }

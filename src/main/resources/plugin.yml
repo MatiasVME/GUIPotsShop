@@ -9,4 +9,4 @@ depends: Vault
 commands:
   potsshop:
     description: Show GUI Pots Shop or enable/disable pots
-    usage: /potsshop [set] [potion-name] [true/false]
+    usage: /potsshop

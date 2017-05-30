@@ -41,7 +41,6 @@ public class PotsShop implements CommandExecutor {
 
                 inv = addPotions(inv);
 
-
                 player.openInventory(inv);
 
                 //player.sendMessage("Num of pots enabled: " + potNames.getNumPotsEnabled());
@@ -51,36 +50,6 @@ public class PotsShop implements CommandExecutor {
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&',
                         plugin.getConfig().getString("messages.not-permission")));
             }
-        }
-
-        else if (isPotsShop && args.length == 3) {
-            args[0] = args[0].toLowerCase();
-            args[1] = args[1].toLowerCase();
-            args[2] = args[2].toLowerCase();
-
-            if (Objects.equals(args[0], "set") && Potions.existsNamePotion(args[1]) && Objects.equals(args[2], "true") || Objects.equals(args[2], "false")) {
-                if (Objects.equals(args[1], "regen")) {
-                    plugin.getConfig().set("potions.regen", args[2]);
-                }
-
-                else if (Objects.equals(args[1], "regen-ext")) {
-                    plugin.getConfig().set("potions.regen-ext", args[2]);
-                }
-
-                else if (Objects.equals(args[1], "regen-splash")) {
-                    plugin.getConfig().set("potions.regen-splash", args[2]);
-                }
-
-                else if (Objects.equals(args[1], "regen-splash-ext")) {
-                    plugin.getConfig().set("potions.regen-splash-ext", args[2]);
-                }
-
-                plugin.saveConfig();
-            }
-        }
-
-        else {
-            return false;
         }
 
         return true;

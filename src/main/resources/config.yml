@@ -4,42 +4,57 @@ chest-name: "&5&l[&3&lGUIPotsShop&5&l]"
 
 potions:
   night: true
-  night-ext: false
-  night-splash: false
-  night-splash-ext: false
+  night-ext: true
+  night-splash: true
+  night-splash-ext: true
 
-  invi: false
+  invi: true
   invi-ext: true
-  invi-splash: false
-  invi-splash-ext: false
+  invi-splash: true
+  invi-splash-ext: true
 
-  fire: false
+  jump: true
+  jump-ext: true
+  jump-up: true
+  jump-splash: true
+  jump-splash-ext: true
+  jump-splash-up: true
+
+  fire: true
   fire-ext: true
-  fire-splash: false
-  fire-splash-ext: false
+  fire-splash: true
+  fire-splash-ext: true
 
-  heal: false
-  heal-up: false
-  heal-splash: false
+  speed: true
+  speed-ext: true
+  speed-up: true
+  speed-splash: true
+  speed-splash-ext: true
+  speed-splash-up: true
+
+  heal: true
+  heal-up: true
+  heal-splash: true
   heal-splash-up: true
 
-  poison: false
-  poison-ext: false
-  poison-splash: false
-  poison-splash-ext: false
+  poison: true
+  poison-ext: true
+  poison-up: true
+  poison-splash: true
+  poison-splash-ext: true
   poison-splash-up: true
 
-  regen: false
-  regen-ext: false
-  regen-up: false
-  regen-splash: false
-  regen-splash-ext: false
-  regen-splash-up: false
+  regen: true
+  regen-ext: true
+  regen-up: true
+  regen-splash: true
+  regen-splash-ext: true
+  regen-splash-up: true
 
-  strength: false
+  strength: true
   strength-up: true
   strength-ext: true
-  strength-splash: false
+  strength-splash: true
   strength-splash-ext: true
   strength-splash-up: true
 
@@ -54,10 +69,24 @@ potions-cost:
   invi-splash: 100
   invi-splash-ext: 100
 
+  jump: 100
+  jump-ext: 100
+  jump-up: 100
+  jump-splash: 100
+  jump-splash-ext: 100
+  jump-splash-up: 100
+
   fire: 100
   fire-ext: 100
   fire-splash: 100
   fire-splash-ext: 100
+
+  speed: 100
+  speed-ext: 100
+  speed-up: 100
+  speed-splash: 100
+  speed-splash-ext: 100
+  speed-splash-up: 100
 
   heal: 100
   heal-up: 100
@@ -66,6 +95,7 @@ potions-cost:
 
   poison: 100
   poison-ext: 100
+  poison-up: 100
   poison-splash: 100
   poison-splash-ext: 100
   poison-splash-up: 100
@@ -90,3 +120,4 @@ messages:
   cant-buy: "&3You do not have enough money."
   economy-error: "&4An error has occurred in the economy: "
   pots-price-lore: "&3This potion is worth: &2"
+  full-inventory: "&3The inventory is full"

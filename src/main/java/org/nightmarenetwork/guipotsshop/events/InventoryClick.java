@@ -11,8 +11,12 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 import org.nightmarenetwork.guipotsshop.Potions;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by matias on 15-05-17.
@@ -40,12 +44,15 @@ public class InventoryClick implements Listener {
             return;
 
         Player player = (Player) event.getWhoClicked();
-
         ItemStack item = event.getCurrentItem();
 
         int slot = event.getSlot();
 
-        if (item.getType() == Material.POTION || item.getType() == Material.SPLASH_POTION) {
+        boolean hasLore = item.getItemMeta().hasLore();
+        boolean fullInv = this.isInventoryFull(player);
+
+        if (item.getType() == Material.POTION || item.getType() == Material.SPLASH_POTION
+                && hasLore && !fullInv) {
             double price = (double) plugin.getConfig().getInt("potions-cost."
                     + potsNames.getCurrentPotionName(slot));
 
@@ -63,7 +70,14 @@ public class InventoryClick implements Listener {
                             plugin.getConfig().getString("messages.bought-potion")));
 
                     PlayerInventory playerInv = player.getInventory();
-                    playerInv.addItem(item);
+
+                    ItemStack newItem = item.clone();
+                    ItemMeta meta = newItem.getItemMeta();
+                    List<String> lore = new ArrayList<>();
+                    meta.setLore(lore);
+                    newItem.setItemMeta(meta);
+
+                    playerInv.addItem(newItem);
                 }
 
                 else {
@@ -78,10 +92,16 @@ public class InventoryClick implements Listener {
             }
         }
 
-        //inv.addItem(item);
+        else if (fullInv) {
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                    plugin.getConfig().getString("messages.full-inventory")));
+        }
 
+        player.updateInventory();
         event.setCancelled(true);
-        //event.setCurrentItem(null);
-        //player.closeInventory();
+    }
+
+    private boolean isInventoryFull(Player p) {
+        return p.getInventory().firstEmpty() == -1;
     }
 }
